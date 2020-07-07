@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import messagebox
 import tkinter.font as font
 from itertools import permutations
+import CowsAndBullsGame as game
+import TheAlgorithm as Algorithm
 
 #The geometry of the game interface
 root = Tk()
