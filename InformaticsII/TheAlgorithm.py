@@ -14,7 +14,6 @@ def add_for_bulls(matrix, number):
     the number 1234 has returned 1 bull, so we access the following idexes ->
     matrix[0][1] and we add 3 there -> marks that, at the first position,idexed [0]
     the number 1, indexed [1], appeared in number, which resulted bulls > 0"""
-     
     row = 0
     for num in str(number):
         matrix[row][int(num)] += 3
@@ -125,8 +124,8 @@ def grade_number(all_possibles, history_dict):
             best_intersection = current_intersection
             furthest_number = number
             best_previous_intersection = previous_number_intersection
-
     return furthest_number
+
 
 def look_at_bulls(p_set, matrix):
     """Find the number which is the best candidate for being the secret number.
@@ -151,6 +150,7 @@ def look_at_bulls(p_set, matrix):
             closest_number_sum = current_sum
     return closest_number
 #End of functions used to determine the next number
+
 
 def sum_matrix(matrix):
     return sum([sum(x) for x in matrix])

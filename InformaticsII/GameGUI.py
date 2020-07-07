@@ -5,6 +5,7 @@ from itertools import permutations
 import CowsAndBullsGame as game
 import TheAlgorithm as Algorithm
 
+
 #The geometry of the game interface
 root = Tk()
 root.title("Cows and Bulls")
@@ -12,25 +13,11 @@ root.geometry("650x1000")
 root.grid_columnconfigure(index=(0,1), weight=2)
 root.grid_rowconfigure(index=1, weight=0)
 
-#Styles used for texts 
+#Styles used for texts
 style = font.Font(size="40")
 style2 = font.Font(size="30")
 
-#The welcome to the game label and...
-welcome_label = Label(root, text="Welcome to Cows and Bulls", padx=30)
-welcome_label.grid(row=0, column=0)
-welcome_label["font"] = style
 
-#And the start button
-start_button = Button(root, text="Press to start", command=display)
-start_button["font"] = style
-start_button.grid(row=1, column=0, padx=105, pady=15)
-
-#The secret number which the user needs to guess
-secret_number = game.number_to_guess()
-
-
-#The function
 #dictionary to keep track of every turn
 history_dict = {} # history_dict[list(history_dict.keys())[-1]] - access the list with bulls and cows ... list(history_dict.keys())[-1] - access the last number
 #generates a list of all possible values, gets reduced throughout the game
@@ -162,5 +149,20 @@ def clear():
     dynamic_remaining.set("Remaining numbers:\n" + str(len(set_of_possibles)))
     display()
 #END OF: Helper functions
+
+
+#The welcome to the game label and...
+welcome_label = Label(root, text="Welcome to Cows and Bulls", padx=30)
+welcome_label.grid(row=0, column=0)
+welcome_label["font"] = style
+
+#And the start button
+start_button = Button(root, text="Press to start", command=display)
+start_button["font"] = style
+start_button.grid(row=1, column=0, padx=105, pady=15)
+
+#The secret number which the user needs to guess
+secret_number = game.number_to_guess()
+
 
 root.mainloop()

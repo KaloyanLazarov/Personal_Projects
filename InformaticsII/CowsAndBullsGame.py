@@ -1,10 +1,12 @@
 from itertools import permutations
 import random
 
+
 def number_to_guess():
     """Generates random 4 digit number with no repeating digits for the user to guess"""
     permutations_number = [int(''.join(map(str, x))) for x in permutations(range(10), 4) if x[0] != 0 ]
     return random.choice(permutations_number)
+
 
 def compare(game_num, user_num):
     """Compares the two numbers and returns a list with the number of
@@ -25,5 +27,4 @@ def compare(game_num, user_num):
             if user_num_lst[digit_idx] == game_num_lst[iter_idx]:
                 # with the number we have grabbed, we iterate over to check for equality
                 cows += 1
-
     return [cows, bulls]
