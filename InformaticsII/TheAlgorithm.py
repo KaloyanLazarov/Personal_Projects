@@ -4,10 +4,11 @@ import random
 
 #Functions used to add number to the matrix when we have bulls and cows
 def only_cows(p_set, number): 
-    p_set[:] = [x for x in p_set if str(x)[0] != str(number)[0]
-            and str(x)[1] != str(number)[1]
-            and str(x)[2] != str(number)[2]
-            and str(x)[3] != str(number)[3]]
+    p_set[:] = [possible_number for possible_number in p_set if
+                str(possible_number)[0] != str(number)[0] and
+                str(possible_number)[1] != str(number)[1] and
+                str(possible_number)[2] != str(number)[2] and
+                str(possible_number)[3] != str(number)[3]]
 
 def add_for_bulls(matrix, number):
     """Access the matrix at the coresponding index and adds the value 3 ->
@@ -34,29 +35,30 @@ def only_cows(p_set, number):
     """If we got cows only -> we exclude all numbers which digits, at given position,
      are the same as the guessed number. Example:
      1234 = 2 cows => the secret number does not begin with 1, nor its second digit is 2 and so on"""
-    p_set[:] = [remaining_number for remaining_number in p_set if
-                str(remaining_number)[0] != str(number)[0] and
-                str(remaining_number)[1] != str(number)[1] and
-                str(remaining_number)[2] != str(number)[2] and
-                str(remaining_number)[3] != str(number)[3]]
+    p_set[:] = [possible_number for possible_number in p_set if
+                str(possible_number)[0] != str(number)[0] and
+                str(possible_number)[1] != str(number)[1] and
+                str(possible_number)[2] != str(number)[2] and
+                str(possible_number)[3] != str(number)[3]]
 
 
 def the_four_sum(p_set, number):
     """When cows + bulls == 4 -> we know the digits,
     the secret number if a different permutation of them"""
-    p_set[:] = [x for x in p_set if sorted(list(str(x))) == sorted(list(str(number)))]
+    p_set[:] = [possible_number for possible_number in p_set if sorted(list(str(possible_number))) == sorted(list(str(number)))]
 
 
 def the_zero_sum(p_set, number):
     """When cows + bulls == 0, none of the digits are part of the secret_number,
-    thus the intersection between the remaining_number and the number is 0"""
-    p_set[:] = [x for x in p_set if len(set(str(x)).intersection(set(str(number)))) == 0]
+    thus the intersection between the possible_number and the guessed number is 0"""
+    p_set[:] = [possible_number for possible_number in p_set if len(set(str(possible_number)).intersection(set(str(number)))) == 0]
 
 
 def exclude(history_dict):
     """The function bundles the last guessed number with all previous guesses and stores it in current_set
     sum_current_set checks if the number of cows and bulls of those 2 numbers is 4, if so we can conclude that:
-    the 4 digits of the secret number are among the 8 digits of the guessed numbers, thus excluding the 2 left digits"""
+    the 4 digits of the secret number are among the 8 digits of the guessed numbers, thus excluding the 2 remaining digits
+    The function checks if we have successful bundle and if so returns the 2 remaining digits"""
 
     for i in range(len(list(history_dict.keys())) - 1):
         current_set = set(list(str(list(history_dict.keys())[i]) +
@@ -75,8 +77,9 @@ def exclude(history_dict):
 def exclude_number(p_set, list_to_exclude):
     """Called when we have successfully bundled 2 numbers together.
     Maps the 2 numbers into strings and filters all numbers which include one or the other"""
-    p_set[:] = [number for number in p_set if "".join(map(str, list_to_exclude))[0] not in str(number)
-                and "".join(map(str, list_to_exclude))[1] not in str(number)]
+    p_set[:] = [number for number in p_set if
+                "".join(map(str, list_to_exclude))[0] not in str(number) and
+                "".join(map(str, list_to_exclude))[1] not in str(number)]
 
 
 #Functions used to determine the next next number
@@ -104,7 +107,7 @@ def grade_number(all_possibles, history_dict):
     The empowers our exclude function
     A heuristic to grade the numbers can be used here as well"""
 
-    closest_number = 0 #list(history_dict.keys())[-1]
+    closest_number = 0
     sum_of_closest_number = -1
     for already_guessed in list(history_dict.keys()):
         if sum(history_dict[already_guessed]) > sum_of_closest_number:
