@@ -3,13 +3,6 @@ import random
 
 
 #Functions used to add number to the matrix when we have bulls and cows
-def only_cows(p_set, number): 
-    p_set[:] = [possible_number for possible_number in p_set if
-                str(possible_number)[0] != str(number)[0] and
-                str(possible_number)[1] != str(number)[1] and
-                str(possible_number)[2] != str(number)[2] and
-                str(possible_number)[3] != str(number)[3]]
-
 def add_for_bulls(matrix, number):
     """Access the matrix at the coresponding index and adds the value 3 ->
     the number 1234 has returned 1 bull, so we access the following idexes ->
