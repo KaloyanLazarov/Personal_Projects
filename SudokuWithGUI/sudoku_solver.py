@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter.ttk
 
 root = Tk()
+root.title("Sudoku Solver")
 root.geometry("650x600")
 sudoku =   [[8, 1, 0, 0, 3, 0, 0, 2, 7],
             [0, 6, 2, 0, 5, 0, 0, 9, 0],
@@ -66,6 +67,7 @@ def solve_sudoku(board, row, col):
         for number in range(1, len(board) + 1):
             if is_possible(board, row, col, number):
                 board[row][col] = number
+                squares[row][col].config(bg="green")
                 update(row, col, number)
                 if col < size_board - 1:
                     if solve_sudoku(board, row, col + 1):
@@ -73,12 +75,14 @@ def solve_sudoku(board, row, col):
                     else:
                         board[row][col] = 0
                         update(row, col, board[row][col])
+                        squares[row][col].config(bg="red")
                 elif row < size_board - 1:
                     if solve_sudoku(board, row + 1, 0):
                         return True
                     else:
                         board[row][col] = 0
                         update(row, col, board[row][col])
+                        squares[row][col].config(bg="red")
     return False
 
 def is_possible(board, row, col, number):
