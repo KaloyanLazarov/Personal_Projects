@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter.ttk
 
 root = Tk()
-root.geometry("500x500")
+root.geometry("650x600")
 sudoku =   [[8, 1, 0, 0, 3, 0, 0, 2, 7],
             [0, 6, 2, 0, 5, 0, 0, 9, 0],
             [0, 7, 0, 0, 0, 0, 0, 0, 0],
@@ -22,7 +22,7 @@ def name_var(row, col):
 
 squares = [
     [Label(root,
-    #borderwidth=2, relief="groove",
+    borderwidth=1, relief="ridge",
     textvariable=IntVar(value=sudoku_number(sudoku, y, x), name=name_var(y, x)))
             for x in range(9)]
             for y in range(9)
@@ -31,26 +31,19 @@ squares = [
 for rows in range(9):
     for cols in range(9):
         squares[rows][cols].grid(row=(rows + (rows // 3)) + 1, column=(cols + (cols // 3)) + 1)
+        squares[rows][cols].config(width=4, height=3, font=("Courier", 18))
 
-vertical_separators = [
-    tkinter.ttk.Separator(root, orient=VERTICAL),
-    tkinter.ttk.Separator(root, orient=VERTICAL),
-    tkinter.ttk.Separator(root, orient=VERTICAL),
-    tkinter.ttk.Separator(root, orient=VERTICAL)
-]
 
-horizontal_seperators = [
-    tkinter.ttk.Separator(root, orient=HORIZONTAL,),
-    tkinter.ttk.Separator(root, orient=HORIZONTAL),
-    tkinter.ttk.Separator(root, orient=HORIZONTAL),
-    tkinter.ttk.Separator(root, orient=HORIZONTAL)
-
-]
+#Creating the vertical separators objects and griding them
+vertical_separators = [tkinter.ttk.Separator(root, orient=VERTICAL) for _ in range(4)]
 for ver_idx in range(len(vertical_separators)):
-    vertical_separators[ver_idx].grid(row=0, column=ver_idx*4, rowspan=12, sticky='ns')
+    vertical_separators[ver_idx].grid(row=0, column=ver_idx*4, rowspan=13, sticky='ns', ipadx=2)
 
+
+#Creating the horizontal separators objects and griding them
+horizontal_seperators = [tkinter.ttk.Separator(root, orient=HORIZONTAL,) for _ in range(4)]
 for hor_idx in range(len(horizontal_seperators)):
-    horizontal_seperators[hor_idx].grid(row=hor_idx*4, column=0, columnspan=12, sticky='we')
+    horizontal_seperators[hor_idx].grid(row=hor_idx*4, column=0, columnspan=13, sticky='we', ipady=2)
 
 def update(row, col, val):
     squares[row][col].setvar(name_var(row, col), val)
@@ -112,6 +105,6 @@ def is_possible(board, row, col, number):
     return True
 
 start_button = Button(root, text="Start", command=lambda: solve_sudoku(sudoku, 0, 0))
-start_button.grid(row=15, column=15, padx=10)
+start_button.grid(row=0, column=13, rowspan=2, ipadx=40, ipady=20)
 
 root.mainloop()
