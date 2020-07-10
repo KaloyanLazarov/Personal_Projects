@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter.ttk
 
 root = Tk()
 root.geometry("500x500")
@@ -20,16 +21,36 @@ def name_var(row, col):
 
 
 squares = [
-    [Label(root, textvariable=IntVar(value=sudoku_number(sudoku, y, x), name=name_var(y, x)))
+    [Label(root,
+    #borderwidth=2, relief="groove",
+    textvariable=IntVar(value=sudoku_number(sudoku, y, x), name=name_var(y, x)))
             for x in range(9)]
             for y in range(9)
 ]
 
-
 for rows in range(9):
     for cols in range(9):
-        squares[rows][cols].grid(row=rows, column=cols)
+        squares[rows][cols].grid(row=(rows + (rows // 3)) + 1, column=(cols + (cols // 3)) + 1)
 
+vertical_separators = [
+    tkinter.ttk.Separator(root, orient=VERTICAL),
+    tkinter.ttk.Separator(root, orient=VERTICAL),
+    tkinter.ttk.Separator(root, orient=VERTICAL),
+    tkinter.ttk.Separator(root, orient=VERTICAL)
+]
+
+horizontal_seperators = [
+    tkinter.ttk.Separator(root, orient=HORIZONTAL,),
+    tkinter.ttk.Separator(root, orient=HORIZONTAL),
+    tkinter.ttk.Separator(root, orient=HORIZONTAL),
+    tkinter.ttk.Separator(root, orient=HORIZONTAL)
+
+]
+for ver_idx in range(len(vertical_separators)):
+    vertical_separators[ver_idx].grid(row=0, column=ver_idx*4, rowspan=12, sticky='ns')
+
+for hor_idx in range(len(horizontal_seperators)):
+    horizontal_seperators[hor_idx].grid(row=hor_idx*4, column=0, columnspan=12, sticky='we')
 
 def update(row, col, val):
     squares[row][col].setvar(name_var(row, col), val)
@@ -91,6 +112,6 @@ def is_possible(board, row, col, number):
     return True
 
 start_button = Button(root, text="Start", command=lambda: solve_sudoku(sudoku, 0, 0))
-start_button.grid(row=10, column=0, padx=10)
+start_button.grid(row=15, column=15, padx=10)
 
 root.mainloop()
