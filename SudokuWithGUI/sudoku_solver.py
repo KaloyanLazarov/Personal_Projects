@@ -1,5 +1,7 @@
 from tkinter import *
 import tkinter.ttk
+from time import sleep
+from threading import *
 
 root = Tk()
 root.title("Sudoku Solver")
@@ -108,7 +110,13 @@ def is_possible(board, row, col, number):
 
     return True
 
-start_button = Button(root, text="Start", command=lambda: solve_sudoku(sudoku, 0, 0))
+child_process = Thread(target= lambda: solve_sudoku(sudoku, 0, 0))
+
+start_button = Button(root, text="Start", command= lambda: child_process.start())#lambda: solve_sudoku(sudoku, 0, 0))
 start_button.grid(row=0, column=13, rowspan=2, ipadx=40, ipady=20)
+
+condition = Condition(Lock())
+pause_button = Button(root, text="Pause", command=lambda: Condition())
+pause_button.grid(row=0, column=14, rowspan=2, ipadx=40, ipady=20)
 
 root.mainloop()
