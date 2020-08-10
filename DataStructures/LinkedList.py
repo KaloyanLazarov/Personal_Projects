@@ -9,7 +9,7 @@ class LinkedList:
 
     def __repr__(self):
         self.traverse()
-        return None
+        return "None"
 
     def isEmpty(self):
         return self.head is None
@@ -73,6 +73,7 @@ class LinkedList:
             current_node = current_node.next
 
     def reverse(self):
+        """Reverses the Linked List"""
         if self.isEmpty():
             return "Nothing to traverse"
 
@@ -98,13 +99,16 @@ linked_list.add(20)
 linked_list.add(3)
 linked_list.add(7)
 
-linked_list.traverse()
+print(linked_list)
 linked_list.remove(5)
 print(linked_list.remove(100))
-linked_list.traverse()
+print(linked_list)
 
 linked_list.reverse()
-linked_list.traverse()
+print(linked_list)
 
 linked_list.add(50)
-linked_list.traverse()
+print(linked_list)
+
+linked_list.reverse()
+print(linked_list)
