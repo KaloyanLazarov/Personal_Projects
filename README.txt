@@ -12,3 +12,5 @@ Currently Learning: SQL, SQLite3
 Next to Learn: MySQL, Django, Flask
 
 Learning as a Hobby: Data Analysis - Numpy, Pandas, Seaborn, Plotly
+
+P.S. (31.12.2020) Looking back on my GitHub page it is a mess, close to a catastrophe. Will fix it as soon as I get more free time!
